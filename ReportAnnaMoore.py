@@ -35,7 +35,7 @@ if "start_chat" not in st.session_state:
 if "thread_id" not in st.session_state:
     st.session_state.thread_id = None
 
-st.set_page_config(page_title="Informe sobre la investigació alumnes de les màquines simples",page_icon="✅",layout="wide")
+st.set_page_config(page_title="rurAIctive Gallery by partners",page_icon="✅",layout="wide")
 
 openai.api_key = st.secrets["auto_pau"]
 
@@ -96,9 +96,9 @@ with st.sidebar.form("usuari_form"):
         st.session_state.thread_id = thread.id
 
 
-st.title("Informe - Parlant amb...Ann Moore i les màquines simples")
+st.title("rurAIctive Gallery by partners")
 
-st.sidebar.button("Sortir de l'informe",on_click=enable)
+st.sidebar.button("Exit",on_click=enable)
 
 if st.session_state.start_chat:
     if "openai_model" not in st.session_state:
@@ -114,7 +114,7 @@ if st.session_state.start_chat:
         cur = conn.cursor()
 
         # Ejecuta una consulta SQL
-        sql = "SELECT * FROM teclaPREGUNTES WHERE tema = '90000'"
+        sql = "SELECT * FROM teclaCOMIC WHERE id = '555555540'"
         cur.execute(sql)
 
         # Obtiene los resultados de la consulta
@@ -157,44 +157,14 @@ if st.session_state.start_chat:
         # top-level filters
         #user_filter = st.selectbox("Escull un usuari", pd.unique(df["idc"]))
         # create two columns for charts
-        fig_col1, fig_col2 = st.columns(2)
 
-        with fig_col1:
-            st.markdown("### Distribució de Preguntes")
-            conteo = df['idc'].value_counts().reset_index()
-            conteo.columns = ['Usuari', 'Número de Preguntes']
-            # Crea el gráfico de columnas
-            #fig = px.bar(conteo, x='Usuario', y='Número de Preguntas', title='Número de preguntas por usuarix')
-            #fig = px.pie(df, values='pregunta', names='idc')
-            #st.write(fig)
-            fig2 = px.pie(conteo, values='Número de Preguntes', names='Usuari',title='Número de preguntes por usuarix')
-            st.write(fig2)
-
-        with fig_col2:
-            st.markdown("### Preguntes por data")
-            df['data'] = pd.to_datetime(df['data']).dt.date
-            # Agrupa por fecha y cuenta las preguntas únicas por fecha
-            conteo_preguntas = df.groupby('data')['pregunta'].nunique().reset_index()
-            conteo_preguntas.columns = ['Data', 'Número de Preguntes']
-
-            # Crea el gráfico de columnas
-            fig = px.bar(conteo_preguntas, x='Data', y='Número de Preguntes',
-                         title='Número de Preguntes por Data')
-
-            st.write(fig)
-
-        st.markdown('### Llistat usuaris sense participar')
-        noparticipating = list(set(lc) - set(df['idc']))
-        us_noparticipating = ",".join(str(element) for element in noparticipating)
-        st.markdown(us_noparticipating)
-        st.markdown("### Dades Generals")
-        st.dataframe(df,width=1800,column_order=("idc","pregunta","resposta"),column_config={"idc": "Usuari","pregunta":"Pregunta","resposta": "Resposta","id":None,"tema":None,"curso":None,})
-        for i in range(len(df['infografia'])):
-            if df['infografia'][i]:
-                df['infografia'][i] = "https://www.xavidominguez.com/tecla/"+str(df['infografia'][i])
+        st.markdown("### Gallery")
+        for i in range(len(df['url'])):
+            if df['url'][i]:
+                df['url'][i] = "https://www.xavidominguez.com/tecla/"+str(df['url'][i])
                 #st.write(df['infografia'][i])
-                listimages.append(str(df['infografia'][i]))
-                listcaptions.append(df['pregunta'][i])
+                listimages.append(str(df['url'][i]))
+                listcaptions.append(df['descripcio'][i])
 
         st.image(listimages,caption=listcaptions,width=200,output_format="JPEG")
 else:
