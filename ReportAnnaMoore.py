@@ -158,7 +158,7 @@ if st.session_state.start_chat:
         #user_filter = st.selectbox("Escull un usuari", pd.unique(df["idc"]))
         # create two columns for charts
 
-        for i in range(len(df['url'])):
+        for i in range(len(df['descripcio'])):
             if df['url'][i]:
                 df['url'][i] = "https://www.xavidominguez.com/tecla/"+str(df['url'][i])
                 #st.write(df['infografia'][i])
