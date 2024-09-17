@@ -157,14 +157,18 @@ if st.session_state.start_chat:
         # top-level filters
         #user_filter = st.selectbox("Escull un usuari", pd.unique(df["idc"]))
         # create two columns for charts
+        st.markdown("### Dades Generals")
+        st.dataframe(df, width=1800, column_order=("descripcio"),
+                     column_config={"descripcio": "Description"})
 
-        for i in range(len(df['descripcio'])):
+        st.markdown("### Gallery")
+        for i in range(len(df['url'])):
             if df['url'][i]:
                 df['url'][i] = "https://www.xavidominguez.com/tecla/"+str(df['url'][i])
                 #st.write(df['infografia'][i])
                 listimages.append(str(df['url'][i]))
                 listcaptions.append(df['descripcio'][i])
 
-        st.image(listimages,caption=listcaptions,width=400,output_format="JPEG")
+        st.image(listimages,caption=listcaptions,width=200,output_format="JPEG")
 else:
     st.write("Afegeix les teves dades i clica en 'Veure Informe'.")
