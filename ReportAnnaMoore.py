@@ -125,7 +125,7 @@ if st.session_state.start_chat:
 
             # The row name is the first entry for each entity in the description tuple.
             column_names = list()
-            for i in cur.descripcio:
+            for i in cur.description:
                 column_names.append(i[0])
 
             result.append(column_names)
